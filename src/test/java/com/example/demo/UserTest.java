@@ -14,8 +14,11 @@ class UserTest {
     void jsonSetter() throws JsonProcessingException {
         String json = "{\"finishTime\":\"10:00\"}";
         User user = objectMapper.readerFor(User.class).readValue(json);
+        String result = objectMapper.writeValueAsString(user);
 
-        assertThat(user.getCompletedTime()).isEqualTo("10:00");
+        System.out.println(result);
+
+        assertThat(result).isEqualTo("{\"completedTime\":\"10:00\"}");
     }
 
     @Test
@@ -23,6 +26,8 @@ class UserTest {
         String json = "{\"ignore\":\"yes\",\"finishTime\":\"10:00\"}";
         User user = objectMapper.readerFor(User.class).readValue(json);
         String result = objectMapper.writeValueAsString(user);
+
+        System.out.println(result);
 
         assertThat(result).doesNotContain("yes");
     }
